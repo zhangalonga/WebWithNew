@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	   http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+    <context:component-scan base-package="com.qq.userbase.yuewenauthenserverv3">
+    </context:component-scan>
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+    <!-- aop future enable -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- server servant thread pool config  -->
+    <bean id="servantAsyncThreadPool"
+          class="com.qq.userbase.yuewenauthenserverv3.util.ListeningThreadPoolTaskExecutor">
+        <!-- init thread  size  -->
+        <property name="corePoolSize" value="24"/>
+        <!--   max thread size  -->
+        <property name="maxPoolSize" value="24"/>
+        <!-- max thread  queue size  -->
+        <property name="queueCapacity" value="300000"/>
+    </bean>
+    <bean id="servantAsyncThreadPoolWrite"
+          class="com.qq.userbase.yuewenauthenserverv3.util.ListeningThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="6"/>
+        <property name="maxPoolSize" value="48"/>
+        <property name="queueCapacity" value="300000"/>
+    </bean>
+</beans>
+
+
